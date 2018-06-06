@@ -1,0 +1,23 @@
+﻿<Window x:Class="wpfloginscreen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525"
+        Loaded="Window_Loaded">
+    <Border Background="#2e3137" CornerRadius="20" Margin="20">
+        <DockPanel>
+            <Frame x:Name="mainFrame" />
+            <Grid RenderTransformOrigin="0.68,0.789" Margin="331,151,0.262,0.354">
+                <Label Content="Inventory" Foreground="White" FontSize="25" Margin="-38,-119,12,192"/>
+                <Label Content="Products" Foreground="White" FontSize="25"  Margin="-319,-119,312,202" Height="47" Width="155"/>
+                <Grid Margin="-92,0,12,10">
+                    <DataGrid Name="InventoryList" Margin="45,-55,9.692,65.969" />
+                    <DataGrid x:Name="ProductList" Margin="-222,-55,276.692,66.969" />
+                    <Label Content="Money left:" Foreground="White" FontSize="15"  HorizontalAlignment="Left" Margin="-210,79,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="moneyBox" Background="white" Foreground="Black" IsReadOnly="True" FontSize="18" Margin="-120,82,291.692,10.969"/>
+                
+                </Grid>
+                <Button Content="Koop product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="-132,11,0,0" Click="Koop_button"/>
+            </Grid>
+        </DockPanel>
+    </Border>
+</Window>

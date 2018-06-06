@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="wpfloginscreen" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Product_ID" />
+    </Key>
+    <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserUser_ID" Type="Int32" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Inventory" Relationship="wpfloginscreen.InventoryProduct" FromRole="Product" ToRole="Inventory" />
+    <Property Name="InventoryId" Nullable="false" Type="Int32" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Credit" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Inventory" Relationship="wpfloginscreen.UserInventory" FromRole="User" ToRole="Inventory" />
+  </EntityType>
+  <EntityContainer Name="webshopHostEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="Inventories" EntityType="wpfloginscreen.Inventory" />
+    <AssociationSet Name="UserInventory" Association="wpfloginscreen.UserInventory">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Inventory" EntitySet="Inventories" />
+    </AssociationSet>
+    <AssociationSet Name="InventoryProduct" Association="wpfloginscreen.InventoryProduct">
+      <End Role="Inventory" EntitySet="Inventories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Inventory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="User" Relationship="wpfloginscreen.UserInventory" FromRole="Inventory" ToRole="User" />
+    <NavigationProperty Name="Products" Relationship="wpfloginscreen.InventoryProduct" FromRole="Inventory" ToRole="Product" />
+  </EntityType>
+  <Association Name="UserInventory">
+    <End Type="wpfloginscreen.User" Role="User" Multiplicity="1" />
+    <End Type="wpfloginscreen.Inventory" Role="Inventory" Multiplicity="1" />
+  </Association>
+  <Association Name="InventoryProduct">
+    <End Type="wpfloginscreen.Inventory" Role="Inventory" Multiplicity="1" />
+    <End Type="wpfloginscreen.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inventory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="InventoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
