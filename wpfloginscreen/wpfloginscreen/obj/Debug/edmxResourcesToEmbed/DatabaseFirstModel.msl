@@ -2,7 +2,7 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="webshopHostModelStoreContainer" CdmEntityContainer="webshopHostEntities">
     <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="webshopHostModel.Product">
+      <EntityTypeMapping TypeName="IsTypeOf(webshopHostModel.Product)">
         <MappingFragment StoreEntitySet="Products">
           <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
           <ScalarProperty Name="UserUser_ID" ColumnName="UserUser_ID" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="webshopHostModel.User">
+      <EntityTypeMapping TypeName="IsTypeOf(webshopHostModel.User)">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="User_ID" ColumnName="User_ID" />
           <ScalarProperty Name="Username" ColumnName="Username" />

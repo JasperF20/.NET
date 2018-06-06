@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="webshopHostModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="webshopHostModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="webshopHostModelStoreContainer">
+    <EntitySet Name="Products" EntityType="webshopHostModel.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="webshopHostModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_UserProduct" Association="webshopHostModel.Store.FK_UserProduct">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="Product_ID" />
@@ -19,8 +27,8 @@
     <Property Name="Credit" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="FK_UserProduct">
-    <End Role="Users" Type="Self.Users" Multiplicity="1" />
-    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <End Role="Users" Type="webshopHostModel.Store.Users" Multiplicity="1" />
+    <End Role="Products" Type="webshopHostModel.Store.Products" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
         <PropertyRef Name="User_ID" />
@@ -30,12 +38,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="webshopHostModelStoreContainer">
-    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_UserProduct" Association="Self.FK_UserProduct">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="Products" EntitySet="Products" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>
