@@ -31,6 +31,7 @@ namespace wpfloginscreen
             using (var db = new webshopHostEntities())
             {
                 //maak standaard een paar producten aan
+                //TODO: zorg dat producten maar 1x worden toegevoegd, maar hun stock wel aan te passen is
                 var appel = new Product
                 {
                     Product_ID = 1,
@@ -60,10 +61,17 @@ namespace wpfloginscreen
                     Product_ID = 4,
                     Price = 9000,
                     Name = "Rabarber",
+                    Stock = 100,
+                    InventoryId = 1
+                };
+                var spinazie = new Product
+                {
+                    Product_ID = 5,
+                    Price = 9000,
+                    Name = "Spinazie",
                     Stock = 0,
                     InventoryId = 1
                 };
-
 
 
                 User admin = new User
