@@ -20,7 +20,13 @@ namespace wpfloginscreen
             InitializeComponent();
         }
 
-      
+        public User currentUser;
+
+        public User getUser ()
+        {
+            return currentUser;
+        }
+
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
@@ -37,6 +43,10 @@ namespace wpfloginscreen
                     {
                         // als account bestaat en login gegevens kloppen
                         MessageBox.Show("Login gelukt!", "Systeem melding");
+                        
+                        // set current user object to this user
+                      //  currentUser = db.Users.Find(txtUsername.Text);
+
                         Close();
                         webshopPage.Show();
                     }

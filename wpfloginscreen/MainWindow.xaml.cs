@@ -85,6 +85,12 @@ namespace wpfloginscreen
                 select new { product.Name };
 
                 ProductList.ItemsSource = query.ToList();
+                //get logged in user
+
+                // show money in box moneyBox.Text = currentUser.Credit;
+                moneyBox.Text = "10";
+
+
             }
         }
 

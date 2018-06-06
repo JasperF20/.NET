@@ -12,8 +12,11 @@
                 <Grid Margin="-92,0,12,10">
                     <DataGrid Name="InventoryList" Margin="45,-55,9.692,65.969" />
                     <DataGrid x:Name="ProductList" Margin="-222,-55,276.692,66.969" />
+                    <Label Content="Money left:" Foreground="White" FontSize="15"  HorizontalAlignment="Left" Margin="-210,79,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="moneyBox" Background="white" Foreground="Black" IsReadOnly="True" FontSize="18" Margin="-120,82,291.692,10.969"/>
+                
                 </Grid>
-                <Button Content="Koop product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="-301,69,0,0" Click="Koop_button"/>
+                <Button Content="Koop product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="-132,11,0,0" Click="Koop_button"/>
             </Grid>
         </DockPanel>
     </Border>
