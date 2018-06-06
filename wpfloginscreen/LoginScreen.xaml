@@ -3,16 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Login" Height="463.918" Width="511.2" FontSize="14" Background="#04c582">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
-        <StackPanel Margin="20">
-            <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center" Margin="162,0,177.354,0" Height="47" Width="86"/>
-            <Separator/>
-            <Label Content="Username" Foreground="White"/>
-            <TextBox x:Name="txtUsername" Background="#545d6a" Foreground="White" FontSize="18"/>
-            <Label Content="Password" Foreground="White"/>
-            <PasswordBox x:Name="txtPassword" Background="#545d6a" Foreground="White" FontSize="18"/>
-            <Button x:Name="btnSubmit" Click="Login_Click" Content="Aanmelden" Margin="60 10" Background="#545d6a" Foreground="White" FontSize="18"/>
-            <Label Content="Nog geen account?" Foreground="White" FontSize="25" HorizontalAlignment="Center" Margin="91,0,95.354,0" Height="47" Width="239"/>
-            <Button x:Name="to_registration" Click="ButtonRegister_Click" Content="Naar registreren" Margin="60 10" Background="#545d6a" Foreground="White" FontSize="18"/>
-        </StackPanel>
+        <DockPanel>
+            <Frame x:Name="loginFrame" />
+            <StackPanel Margin="20">
+                <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center" Margin="162,0,177.354,0" Height="47" Width="86"/>
+                <Separator/>
+                <Label Content="Username" Foreground="White"/>
+                <TextBox x:Name="txtUsername" Background="#545d6a" Foreground="White" FontSize="18"/>
+                <Label Content="Password" Foreground="White"/>
+                <PasswordBox x:Name="txtPassword" Background="#545d6a" Foreground="White" FontSize="18"/>
+                <Button x:Name="btnSubmit" Click="Login_Click" Content="Aanmelden" Margin="60 10" Background="#545d6a" Foreground="White" FontSize="18"/>
+                <Label Content="Nog geen account?" Foreground="White" FontSize="25" HorizontalAlignment="Center" Margin="91,0,95.354,0" Height="47" Width="239"/>
+                <Button x:Name="to_registration" Click="ButtonRegister_Click" Content="Naar registreren" Margin="60 10" Background="#545d6a" Foreground="White" FontSize="18"/>
+            </StackPanel>
+        </DockPanel>
     </Border>
 </Window>

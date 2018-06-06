@@ -15,10 +15,11 @@ namespace wpfloginscreen
     public partial class Product
     {
         public int Product_ID { get; set; }
-        public int UserUser_ID { get; set; }
+        public Nullable<int> UserUser_ID { get; set; }
         public int Price { get; set; }
         public string Name { get; set; }
+        public int InventoryId { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Inventory Inventory { get; set; }
     }
 }

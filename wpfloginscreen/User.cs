@@ -14,18 +14,11 @@ namespace wpfloginscreen
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
         public int User_ID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public int Credit { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual Inventory Inventory { get; set; }
     }
 }

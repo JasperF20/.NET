@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace wpfloginscreen
@@ -30,7 +31,7 @@ namespace wpfloginscreen
             return new string(charArray);
         }
 
-        private void generate_password(object sender, RoutedEventArgs e)
+        private void Create_user(object sender, RoutedEventArgs e)
         {
             //TODO: deze methode maakt een nieuwe user aan in de database, nog niet af!
             // get waarde van username textfield
@@ -45,48 +46,32 @@ namespace wpfloginscreen
             } else
             {
                 var usernameReversed = ReverseIt(regUsername.Text);
-                regPassword.AppendText(usernameReversed);
+                regPassword.Text = usernameReversed;
+           
+                using (var db = new webshopHostEntities())
+                {
+                    Inventory userInventory = new Inventory();
+                    
+                    var user = new User
+                    {
+                        Username = regUsername.Text,
+                        Password = regPassword.Text,
+                        Credit = 50,
+                        Inventory = userInventory
+                    };
+
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                }
                 MessageBox.Show("Account aangemaakt!", "Systeem melding");
             }
-            /*
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\sqle2012; Initial Catalog=LoginDB; Integrated Security=True;");
-            try
-            {
-                if (sqlCon.State == ConnectionState.Closed)
-                    sqlCon.Open();
-                String query = "SELECT COUNT(1) FROM tblUser WHERE Username=@Username AND Password=@Password";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.CommandType = CommandType.Text;
-                sqlCmd.Parameters.AddWithValue("@Username", regUsername.Text);
-                sqlCmd.Parameters.AddWithValue("@Password", regPassword.Password);
-
-                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                if (count == 1)
-                {
-                    MainWindow dashboard = new MainWindow();
-                    dashboard.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Username or password is incorrect.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                sqlCon.Close();
-            }
-            */
         }
 
         private void To_Login_Click(object sender, RoutedEventArgs e)
         {
-            //loginPage.Show();
-           // Close();
+            LoginScreen loginPage = new LoginScreen();
+            loginPage.Show();
+            Close();
         }
 
     }

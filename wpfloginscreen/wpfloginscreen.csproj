@@ -77,6 +77,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Inventory.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Product.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -135,6 +138,7 @@
     </EntityDeploy>
     <None Include="dbModel.edmx.diagram">
       <DependentUpon>dbModel.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -157,6 +161,7 @@
       <DependentUpon>dbModel.edmx</DependentUpon>
       <LastGenOutput>dbModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="dbModel.edmx.sql" />
     <Content Include="dbModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbModel.edmx</DependentUpon>

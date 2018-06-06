@@ -5,9 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0cbaf73162c24e3cb26672438866e2e1" Name="Diagram1">
-        <EntityTypeShape EntityType="wpfloginscreen.Product" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="wpfloginscreen.User" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="wpfloginscreen.FK_UserProduct" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="wpfloginscreen.Product" Width="1.5" PointX="5.625" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="wpfloginscreen.User" Width="1.5" PointX="1.125" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="wpfloginscreen.Inventory" Width="1.5" PointX="3.375" PointY="1.875"  />
+        <AssociationConnector Association="wpfloginscreen.UserInventory" />
+        <AssociationConnector Association="wpfloginscreen.InventoryProduct" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

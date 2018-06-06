@@ -1,13 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="wpfloginscreen.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="wpfloginscreen.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="wpfloginscreenStoreContainer">
+    <EntitySet Name="Products" EntityType="wpfloginscreen.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="wpfloginscreen.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Inventories" EntityType="wpfloginscreen.Store.Inventories" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserInventory" Association="wpfloginscreen.Store.UserInventory">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Inventory" EntitySet="Inventories" />
+    </AssociationSet>
+    <AssociationSet Name="InventoryProduct" Association="wpfloginscreen.Store.InventoryProduct">
+      <End Role="Inventory" EntitySet="Inventories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="Product_ID" />
     </Key>
     <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserUser_ID" Type="int" Nullable="false" />
+    <Property Name="UserUser_ID" Type="int" Nullable="true" />
     <Property Name="Price" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="InventoryId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -17,25 +31,36 @@
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Credit" Type="int" Nullable="false" />
+    <Property Name="Inventory_Id" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_UserProduct">
-    <End Role="Users" Type="Self.Users" Multiplicity="1" />
-    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+  <EntityType Name="Inventories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="UserInventory">
+    <End Role="User" Type="wpfloginscreen.Store.Users" Multiplicity="*" />
+    <End Role="Inventory" Type="wpfloginscreen.Store.Inventories" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="User_ID" />
+      <Principal Role="Inventory">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Products">
-        <PropertyRef Name="UserUser_ID" />
+      <Dependent Role="User">
+        <PropertyRef Name="Inventory_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="wpfloginscreenStoreContainer">
-    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_UserProduct" Association="Self.FK_UserProduct">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="Products" EntitySet="Products" />
-    </AssociationSet>
-  </EntityContainer>
+  <Association Name="InventoryProduct">
+    <End Role="Inventory" Type="wpfloginscreen.Store.Inventories" Multiplicity="1" />
+    <End Role="Product" Type="wpfloginscreen.Store.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inventory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="InventoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

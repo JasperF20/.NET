@@ -27,5 +27,6 @@ namespace wpfloginscreen
     
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Inventory> Inventories { get; set; }
     }
 }

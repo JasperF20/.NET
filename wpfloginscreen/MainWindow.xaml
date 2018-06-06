@@ -1,30 +1,20 @@
 ﻿<Window x:Class="wpfloginscreen.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        Loaded="Window_Loaded">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
-        <Grid RenderTransformOrigin="0.68,0.789">
-            <Label Content="Inventory" Foreground="White" FontSize="25" Margin="19,10,305.262,224.354" Height="47" Width="155"/>
-            <Label Content="Products" Foreground="White" FontSize="25"  Margin="313,10,11.262,224.354" Height="47" Width="155"/>
-            <ListView Name="InventoryList" HorizontalAlignment="Left" Height="193" Margin="313,62,0,0" VerticalAlignment="Top" Width="155">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-                <ListViewItem Content="Kiwi, 1.50" Margin="0"/>
-                <ListViewItem Content="Sinasappel, 2.75" Margin="0"/>
-            </ListView>
-            <ListView Name="ProductList"  HorizontalAlignment="Left" Height="193" Margin="10,62,0,0" VerticalAlignment="Top" Width="155">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-                <ListViewItem Content="Appel, 1" Margin="0"/>
-                <ListViewItem Content="Banaan, 2" Margin="0"/>
-            </ListView>
-
-        </Grid>
+        <DockPanel>
+            <Frame x:Name="mainFrame" />
+            <Grid RenderTransformOrigin="0.68,0.789" Margin="331,151,0.262,0.354">
+                <Label Content="Inventory" Foreground="White" FontSize="25" Margin="-38,-119,12,192"/>
+                <Label Content="Products" Foreground="White" FontSize="25"  Margin="-319,-119,312,202" Height="47" Width="155"/>
+                <Grid Margin="-92,0,12,10">
+                    <DataGrid Name="InventoryList" Margin="45,-55,9.692,65.969" />
+                    <DataGrid x:Name="ProductList" Margin="-222,-55,276.692,66.969" />
+                </Grid>
+                <Button Content="Koop product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="-301,69,0,0" Click="Koop_button"/>
+            </Grid>
+        </DockPanel>
     </Border>
 </Window>

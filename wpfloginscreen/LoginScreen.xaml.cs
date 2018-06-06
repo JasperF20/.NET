@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Windows;
 using System.Linq;
 using System.Data.Entity.Validation;
+using System.Runtime.InteropServices;
 
 // download sql database: https://www.microsoft.com/en-US/download/details.aspx?id=29062
 // kies voor SQLEXPRADV_x64_ENU.exe
@@ -19,16 +20,7 @@ namespace wpfloginscreen
             InitializeComponent();
         }
 
-        Registration registrationPage = new Registration();
-        MainWindow webshopPage = new MainWindow();
-
-        public int CreateUserID()
-        {
-            int x = 10;
-            return x;
-        }
-
-
+      
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
@@ -37,52 +29,32 @@ namespace wpfloginscreen
             }
             else
             {
-                try
+                using (var db = new webshopHostEntities())
                 {
-                    using (var db = new webshopHostEntities())
+                    MainWindow webshopPage = new MainWindow();
+
+                    if (db.Users.Any(u => u.Username == txtUsername.Text && u.Password == txtPassword.Password))
                     {
-                        //hardcoded nieuwe user aanmaken om te testen
-                        // deze moet opgehaald worden uit invoergegevens
-                        var user = new User
-                        {
-                            User_ID = 1,
-                            Username = txtUsername.Text,
-                            Password = txtPassword.Password,
-                            Credit = 50
-                        };
-
-                        db.Users.Add(user);
-                        db.SaveChanges();
-                        MessageBox.Show("Account created & login succesfull!");
-
-                        /*
-                        var query = from u in db.Users
-                                    orderby u.Username
-                                    select u;
-                        */
-
+                        // als account bestaat en login gegevens kloppen
+                        MessageBox.Show("Login gelukt!", "Systeem melding");
                         Close();
                         webshopPage.Show();
-
+                    }
+                        else
+                    {
+                        // ongeldige gegevens
+                        MessageBox.Show("Username onbekend", "Systeem melding");
                     }
                 }
-                catch (Exception exception)
-                {
-                 
-                }
-
-
-
-            
             }
         }
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)
         {
+            Registration registrationPage = new Registration();
             registrationPage.Show();
             Close();
         }
-
     }
 }
 
