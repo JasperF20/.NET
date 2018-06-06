@@ -4,3 +4,4 @@ wpfloginscreen/.vs/wpfloginscreen/v15/.suo
 *.ide-shm
 *.cache
 wpfloginscreen/wpfloginscreen/obj/Debug/wpfloginscreen.csprojResolveAssemblyReference.cache
+*.lock

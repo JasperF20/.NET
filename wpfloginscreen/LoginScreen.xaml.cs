@@ -35,17 +35,17 @@ namespace wpfloginscreen
             }
             else
             {
+                //string currentUser = txtUsername.Text;
                 using (var db = new webshopHostEntities())
                 {
                     MainWindow webshopPage = new MainWindow();
-
+                    
                     if (db.Users.Any(u => u.Username == txtUsername.Text && u.Password == txtPassword.Password))
                     {
-                        // als account bestaat en login gegevens kloppen
-                        MessageBox.Show("Login gelukt!", "Systeem melding");
-                        
                         // set current user object to this user
-                      //  currentUser = db.Users.Find(txtUsername.Text);
+                        string currentUser = txtUsername.Text;
+                        // als account bestaat en login gegevens kloppen
+                        MessageBox.Show("Login gelukt!\nWelkom " + currentUser, "Systeem melding");
 
                         Close();
                         webshopPage.Show();

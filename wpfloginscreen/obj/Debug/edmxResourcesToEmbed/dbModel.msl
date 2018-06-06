@@ -5,10 +5,10 @@
       <EntityTypeMapping TypeName="IsTypeOf(wpfloginscreen.Product)">
         <MappingFragment StoreEntitySet="Products">
           <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
-          <ScalarProperty Name="UserUser_ID" ColumnName="UserUser_ID" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

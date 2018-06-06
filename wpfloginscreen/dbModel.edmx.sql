@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/06/2018 09:28:01
--- Generated from EDMX file: C:\Users\Jasper\Desktop\wpfloginscreen\wpfloginscreen\dbModel.edmx
+-- Date Created: 06/06/2018 13:45:17
+-- Generated from EDMX file: D:\Git\.NET\wpfloginscreen\dbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [webshopHost];
+USE [DBDemo3];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -45,10 +45,10 @@ GO
 -- Creating table 'Products'
 CREATE TABLE [dbo].[Products] (
     [Product_ID] int IDENTITY(1,1) NOT NULL,
-    [UserUser_ID] int  NULL,
     [Price] int  NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [InventoryId] int  NOT NULL
+    [InventoryId] int  NOT NULL,
+    [Stock] int  NOT NULL
 );
 GO
 

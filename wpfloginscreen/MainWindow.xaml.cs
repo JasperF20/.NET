@@ -33,20 +33,38 @@ namespace wpfloginscreen
                 //maak standaard een paar producten aan
                 var appel = new Product
                 {
-                    UserUser_ID = 1,
                     Product_ID = 1,
                     Price = 2,
                     Name = "Appel",
+                    Stock = 10,
                     InventoryId = 1
                 };
                 var banaan = new Product
                 {
-                    UserUser_ID = 1,
                     Product_ID = 2,
                     Price = 1,
                     Name = "Banaan",
+                    Stock = 6,
                     InventoryId = 1
                 };
+                var kiwi = new Product
+                {
+                    Product_ID = 3,
+                    Price = 105,
+                    Name = "Kiwi",
+                    Stock = 1,
+                    InventoryId = 1
+                };
+                var rabarber = new Product
+                {
+                    Product_ID = 4,
+                    Price = 9000,
+                    Name = "Rabarber",
+                    Stock = 0,
+                    InventoryId = 1
+                };
+
+
 
                 User admin = new User
                 {
@@ -63,9 +81,12 @@ namespace wpfloginscreen
                         Id = 1,
                         User = admin
                     };
+                  
 
                 db.Products.Add(appel);
                 db.Products.Add(banaan);
+                db.Products.Add(kiwi);
+                db.Products.Add(rabarber);
                 db.Inventories.Add(userInventory);
                 db.SaveChanges();
             }
@@ -81,15 +102,15 @@ namespace wpfloginscreen
                 {
                 var query =
                 from product in db.Products
-                where product.Product_ID > 0
-                select new { product.Name };
+                where product.Stock > 0
+                select new { product.Name, product.Price, product.Stock };
 
                 ProductList.ItemsSource = query.ToList();
                 //get logged in user
 
                 // show money in box moneyBox.Text = currentUser.Credit;
                 moneyBox.Text = "10";
-
+                
 
             }
         }
@@ -114,3 +135,16 @@ namespace wpfloginscreen
         }
     }
 }
+
+
+
+/*
+ *                 var banaan = new Product
+                {
+                    UserUser_ID = 1,
+                    Product_ID = 2,
+                    Price = 1,
+                    Name = "Banaan",
+                    InventoryId = 1
+                };
+ * */

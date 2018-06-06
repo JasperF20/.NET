@@ -18,10 +18,10 @@
       <PropertyRef Name="Product_ID" />
     </Key>
     <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserUser_ID" Type="int" Nullable="true" />
     <Property Name="Price" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="InventoryId" Type="int" Nullable="false" />
+    <Property Name="Stock" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>

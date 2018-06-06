@@ -10,16 +10,13 @@
 namespace wpfloginscreen
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Product
+    public partial class sp_helpdiagrams_Result
     {
-        public int Product_ID { get; set; }
-        public int Price { get; set; }
+        public string Database { get; set; }
         public string Name { get; set; }
-        public int InventoryId { get; set; }
-        public int Stock { get; set; }
-    
-        public virtual Inventory Inventory { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }
