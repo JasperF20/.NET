@@ -20,9 +20,9 @@ namespace wpfloginscreen
             InitializeComponent();
         }
 
-        public User currentUser;
+        string currentUser;
 
-        public User getUser ()
+        public string GetUser ()
         {
             return currentUser;
         }
@@ -43,7 +43,7 @@ namespace wpfloginscreen
                     if (db.Users.Any(u => u.Username == txtUsername.Text && u.Password == txtPassword.Password))
                     {
                         // set current user object to this user
-                        string currentUser = txtUsername.Text;
+                        currentUser = txtUsername.Text;
                         // als account bestaat en login gegevens kloppen
                         MessageBox.Show("Login gelukt!\nWelkom " + currentUser, "Systeem melding");
 
