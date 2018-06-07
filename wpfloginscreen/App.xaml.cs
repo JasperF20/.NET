@@ -10,5 +10,9 @@ namespace wpfloginscreen
 {
     public partial class App : Application
     {
+        public static string currentUser;
+
     }
+
+
 }

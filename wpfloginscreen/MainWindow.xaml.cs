@@ -106,10 +106,10 @@ namespace wpfloginscreen
         {
             using (var db = new webshopHostEntities())
                 {
-                //total clear table voor eventuele double values 
+                // begin met lege tabel
                 db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Products]");
 
-                //producten alleen toevoegen als ze nog niet bestaan, maar hun stock aanpassen is -> UPDATE statement
+                //producten alleen toevoegen als ze nog niet bestaan
                 if (!db.Products.Any(p => p.Name == "Banaan" || p.Name == "Appel" || p.Name == "Kiwi" || p.Name == "Rabarber" || p.Name == "Spinazie"))
                 {
                     AddStartUpProducts();
@@ -125,10 +125,15 @@ namespace wpfloginscreen
                     ProductList.ItemsSource = query.ToList();
                 }
 
-                //get logged in user
-               //wpfloginscreen.getUser();
-                // show money in box moneyBox.Text = currentUser.Credit;
-                moneyBox.Text = "10";
+                //huidige gebruiker opvragen
+                IQueryable<User> currentUserInfo =
+                    from u in db.Users
+                    where u.Username == App.currentUser 
+                    select u;
+                User myUser = currentUserInfo.FirstOrDefault();
+
+                // show users money in box 
+                moneyBox.Text = myUser.Credit.ToString();
             }
         }
 
@@ -140,6 +145,7 @@ namespace wpfloginscreen
             // add product to users inventory
             //Product.stock -1 doen 
             //User.saldo - product.price doen
+            // update statements gebruiken hiervoor
 
             using (var db = new webshopHostEntities())
             {

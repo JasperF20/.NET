@@ -31,27 +31,14 @@ namespace wpfloginscreen
             return new string(charArray);
         }
 
-        private void Create_user(object sender, RoutedEventArgs e)
+        public void AddUser()
         {
-            //TODO: deze methode maakt een nieuwe user aan in de database, nog niet af!
-            // get waarde van username textfield
-            // zet die string achterstevoren
-            // laat het wachtwoord zien in het wachtwoord textfield
-            // combinatie van username en password naar sql database uploaden
-            // laat berichtje zien dat account is aangemaakt
-
-            if(string.IsNullOrWhiteSpace(regUsername.Text))
+            using (var db = new webshopHostEntities())
             {
-                MessageBox.Show("Geen username ingevuld", "Systeem melding");
-            } else
-            {
-                var usernameReversed = ReverseIt(regUsername.Text);
-                regPassword.Text = usernameReversed;
-           
-                using (var db = new webshopHostEntities())
+                Inventory userInventory = new Inventory();
+                // als die nog niet bestaat -> voeg toe
+                if (!db.Users.Any(u => u.Username == regUsername.Text))
                 {
-                    Inventory userInventory = new Inventory();
-                    
                     var user = new User
                     {
                         Username = regUsername.Text,
@@ -62,8 +49,26 @@ namespace wpfloginscreen
 
                     db.Users.Add(user);
                     db.SaveChanges();
+                    MessageBox.Show("Account aangemaakt!", "Systeem melding");
                 }
-                MessageBox.Show("Account aangemaakt!", "Systeem melding");
+                else
+                {
+                    MessageBox.Show("Gebruikersnaam bestaat al!", "Systeem melding");
+                }
+            }
+        }
+
+        private void Create_user(object sender, RoutedEventArgs e)
+        {
+           
+            if(string.IsNullOrWhiteSpace(regUsername.Text))
+            {
+                MessageBox.Show("Geen username ingevuld", "Systeem melding");
+            } else
+            {
+                var usernameReversed = ReverseIt(regUsername.Text);
+                regPassword.Text = usernameReversed;
+                AddUser();
             }
         }
 
