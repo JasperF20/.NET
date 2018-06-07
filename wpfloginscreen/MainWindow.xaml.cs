@@ -160,6 +160,7 @@ namespace wpfloginscreen
 
             using (var db = new webshopHostEntities())
             {
+                
                 //Als het SelectedProduct niet null is, ofwel als er een geselecteerd is
                 if (SelectedProduct == null)
                 {
@@ -168,7 +169,26 @@ namespace wpfloginscreen
                 }
                 else
                 {
-                    int productPrice =
+                    IQueryable<Product> products =
+                        from p in db.Products
+                        where p.Name == SelectedProduct.ToString()
+                        select p;
+                    //Product myProduct = products.Single();
+                    //MessageBox.Show(products.ToString());
+                    InventoryList.ItemsSource = products.ToList();
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+/*else
+                {
+                    var productPrice =
                         (from product in db.Products
                         where SelectedProduct.ToString() == product.Name
                         select product.Price).SingleOrDefault();
@@ -179,10 +199,7 @@ namespace wpfloginscreen
                           //Te laag saldo, dit bericht
                           MessageBox.Show("You dont have enough credit to purchase this item");
                       }
-
-
-
-                     /* else
+                      else
                       {
                           //Kijk of het item al in de lijst staat
                           if (!db.Inventories.Any(i => i.Name == "Banaan" || i.Name == "Appel" || i.Name == "Kiwi" || i.Name == "Rabarber" || i.Name == "Spinazie"))
@@ -208,10 +225,6 @@ namespace wpfloginscreen
                           {
                               //quantity +1
                           }
-                      }*/
+                      }
                 }
-
-            }
-        }
-    }
-}
+*/
