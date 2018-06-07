@@ -70,6 +70,7 @@ namespace wpfloginscreen
             db.Products.Add(banaan);
             db.Products.Add(kiwi);
             db.Products.Add(rabarber);
+            db.Products.Add(spinazie);
             db.SaveChanges();
             MessageBox.Show("PRODUCTS ADDED ");
         }
@@ -122,7 +123,7 @@ namespace wpfloginscreen
                              product.Price,
                              product.Stock
                          };
-                    ProductList.ItemsSource = query.ToList();
+                    ProductList.ItemsSource = query.ToList();                                                                                                                           //dit moet je doen
                 }
 
                 //huidige gebruiker opvragen
@@ -137,18 +138,71 @@ namespace wpfloginscreen
             }
         }
 
+
         private void Koop_button(object sender, RoutedEventArgs e)
         {
-            //get selected item
-            Product SelectedProduct = (Product)ProductList.SelectedItem;
+            //Huidige gebruiker opvragen, die heb je hier ook nodig, misschien dus gewoon hoger zetten (als je 'm in de using zet, kan je 'm daarbuiten niet zien)
+            IQueryable<User> currentUserInfo =
+                from u in db.Users
+                where u.Username == App.currentUser
+                select u;
+            User myUser = currentUserInfo.FirstOrDefault();
 
-            // add product to users inventory
-            //Product.stock -1 doen 
-            //User.saldo - product.price doen
-            // update statements gebruiken hiervoor
+
+
+            //get selected item, als je dit doet met Product, kan je inderdaad .Price enzo erop aanroepen, ik krijg dan wel een error met uitvoeren
+            //Invalid Cast Exception bij het selecteren van een product, en het klikken op koop artikel button
+            Product SelectedProduct = (Product)ProductList.SelectedValue;
+            //Met var heb ik geen error, maar kan ik bijvoorbeeld .Price er niet op aanroepen, die ik wel nodig heb
+            //var SelectedProduct = ProductList.SelectedItem;
+
+
 
             using (var db = new webshopHostEntities())
             {
+                //Als het SelectedProduct niet null is, ofwel als er een geselecteerd is
+                if (SelectedProduct == null)
+                {
+                    //Geen item geselecteerd, dit bericht
+                    MessageBox.Show("Er is geen item geselecteerd");
+                }
+                else
+                {
+                    //Check of de prijs van het geselecteerde product hoger is dan de credit van de huidige user
+                    if (!db.Inventories.Any(i =>  SelectedProduct.Price > myUser.Credit))
+                    {
+                        //Te laag saldo, dit bericht
+                        MessageBox.Show("You dont have enough credit to purchase this item");
+                    }
+                    /*else
+                    {
+                        //Kijk of het item al in de lijst staat
+                        if (!db.Inventories.Any(i => i.Name == "Banaan" || i.Name == "Appel" || i.Name == "Kiwi" || i.Name == "Rabarber" || i.Name == "Spinazie"))
+                        {
+                            //Voeg item toe aan de lijst, en zet het aantal op 1
+                            var query =
+                                 from product in db.Products
+                                 where product.Stock > 0
+                                 select new
+                                 {
+                                     Inventory.Name,
+                                     Inventory.Price,
+                                     Inventory.Quantity += 1
+                                 };
+
+                            //Prijs moet ook nog van de user af
+                            //myuser.Credit - selectedProduct.Price
+
+
+                            InventoryList.ItemsSource = query.ToList();                                                                                                                           //dit moet je doen
+                        }
+                        else
+                        {
+                            //quantity +1
+                        }
+                    }*/
+                }
+               
             }
         }
     }
