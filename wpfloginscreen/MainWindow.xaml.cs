@@ -152,10 +152,10 @@ namespace wpfloginscreen
 
             //get selected item, als je dit doet met Product, kan je inderdaad .Price enzo erop aanroepen, ik krijg dan wel een error met uitvoeren
             //Invalid Cast Exception bij het selecteren van een product, en het klikken op koop artikel button
-            Product SelectedProduct = (Product)ProductList.SelectedValue;
+            //Product SelectedProduct = (Product)ProductList.SelectedValue;
             //Met var heb ik geen error, maar kan ik bijvoorbeeld .Price er niet op aanroepen, die ik wel nodig heb
-            //var SelectedProduct = ProductList.SelectedItem;
-
+            var SelectedProduct = ProductList.SelectedItem;
+            Console.WriteLine(SelectedProduct);
 
 
             using (var db = new webshopHostEntities())
@@ -168,41 +168,49 @@ namespace wpfloginscreen
                 }
                 else
                 {
-                    //Check of de prijs van het geselecteerde product hoger is dan de credit van de huidige user
-                    if (!db.Inventories.Any(i =>  SelectedProduct.Price > myUser.Credit))
-                    {
-                        //Te laag saldo, dit bericht
-                        MessageBox.Show("You dont have enough credit to purchase this item");
-                    }
-                    /*else
-                    {
-                        //Kijk of het item al in de lijst staat
-                        if (!db.Inventories.Any(i => i.Name == "Banaan" || i.Name == "Appel" || i.Name == "Kiwi" || i.Name == "Rabarber" || i.Name == "Spinazie"))
-                        {
-                            //Voeg item toe aan de lijst, en zet het aantal op 1
-                            var query =
-                                 from product in db.Products
-                                 where product.Stock > 0
-                                 select new
-                                 {
-                                     Inventory.Name,
-                                     Inventory.Price,
-                                     Inventory.Quantity += 1
-                                 };
+                    int productPrice =
+                        (from product in db.Products
+                        where SelectedProduct.ToString() == product.Name
+                        select product.Price).SingleOrDefault();
 
-                            //Prijs moet ook nog van de user af
-                            //myuser.Credit - selectedProduct.Price
+                      //Check of de prijs van het geselecteerde product hoger is dan de credit van de huidige user
+                      if (productPrice > myUser.Credit)
+                      {
+                          //Te laag saldo, dit bericht
+                          MessageBox.Show("You dont have enough credit to purchase this item");
+                      }
 
 
-                            InventoryList.ItemsSource = query.ToList();                                                                                                                           //dit moet je doen
-                        }
-                        else
-                        {
-                            //quantity +1
-                        }
-                    }*/
+
+                     /* else
+                      {
+                          //Kijk of het item al in de lijst staat
+                          if (!db.Inventories.Any(i => i.Name == "Banaan" || i.Name == "Appel" || i.Name == "Kiwi" || i.Name == "Rabarber" || i.Name == "Spinazie"))
+                          {
+                              //Voeg item toe aan de lijst, en zet het aantal op 1
+                              var query =
+                                   from product in db.Products
+                                   where product.Stock > 0
+                                   select new
+                                   {
+                                       Inventory.Name,
+                                       Inventory.Price,
+                                       Inventory.Quantity += 1
+                                   };
+
+                              //Prijs moet ook nog van de user af
+                              //myuser.Credit - selectedProduct.Price
+
+
+                              InventoryList.ItemsSource = query.ToList();                                                                                                                           //dit moet je doen
+                          }
+                          else
+                          {
+                              //quantity +1
+                          }
+                      }*/
                 }
-               
+
             }
         }
     }
