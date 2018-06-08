@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core.Objects;
+using System.Collections;
 
 namespace wpfloginscreen
 {
@@ -138,6 +139,10 @@ namespace wpfloginscreen
             }
         }
 
+        public static T CastByExample<T>(object input, T example)
+        {
+            return (T)input;
+        }
 
         private void Koop_button(object sender, RoutedEventArgs e)
         {
@@ -150,14 +155,26 @@ namespace wpfloginscreen
 
 
 
-            //get selected item, als je dit doet met Product, kan je inderdaad .Price enzo erop aanroepen, ik krijg dan wel een error met uitvoeren
-            //Invalid Cast Exception bij het selecteren van een product, en het klikken op koop artikel button
-            //Product SelectedProduct = (Product)ProductList.SelectedValue;
-            //Met var heb ik geen error, maar kan ik bijvoorbeeld .Price er niet op aanroepen, die ik wel nodig heb
+            //get selected item
             var SelectedProduct = ProductList.SelectedItem;
+
+            var p = CastByExample(SelectedProduct, new
+            {
+                Name = default(string),
+                Price = default(int),
+                Stock = default(int)
+            });
+
+            Product newProduct = new Product
+            {
+                Name = p.Name,
+                Price = p.Price,
+                Stock = p.Stock
+            };
+
+            //Debugging
             Console.WriteLine(SelectedProduct);
-
-
+                        
             using (var db = new webshopHostEntities())
             {
                 
@@ -169,13 +186,14 @@ namespace wpfloginscreen
                 }
                 else
                 {
-                    IQueryable<Product> products =
-                        from p in db.Products
-                        where p.Name == SelectedProduct.ToString()
-                        select p;
-                    //Product myProduct = products.Single();
-                    //MessageBox.Show(products.ToString());
-                    InventoryList.ItemsSource = products.ToList();
+                    int productPrice = db.Products.First(a => a.Name == newProduct.Name).Price;
+
+                    if (productPrice > myUser.Credit)
+                    {
+                        //Te laag saldo, dit bericht
+                        MessageBox.Show("You dont have enough credit to purchase this item");
+                    }
+
                 }
             }
         }
@@ -187,11 +205,31 @@ namespace wpfloginscreen
 
 
 /*else
-                {
-                    var productPrice =
+                {//MessageBox.Show("You selected " + SelectedProduct + ".");
+
+
+
+    int productPrice =
                         (from product in db.Products
                         where SelectedProduct.ToString() == product.Name
-                        select product.Price).SingleOrDefault();
+                        select product.Price).FirstOrDefault();
+
+                    MessageBox.Show(productPrice.ToString());
+                    if (productPrice > myUser.Credit)
+                    {
+                        //Te laag saldo, dit bericht
+                        MessageBox.Show("You dont have enough credit to purchase this item");
+                    }
+
+
+
+    IQueryable<Product> products =
+                        from p in db.Products
+                        where p.Name == SelectedProduct.Name
+                        select p.Price as Product;
+
+    InventoryList.ItemsSource = productPrice.ToList();
+                    
 
                       //Check of de prijs van het geselecteerde product hoger is dan de credit van de huidige user
                       if (productPrice > myUser.Credit)
@@ -227,4 +265,15 @@ namespace wpfloginscreen
                           }
                       }
                 }
+
+
+
+
+
+
+            //get selected item, als je dit doet met Product, kan je inderdaad .Price enzo erop aanroepen, ik krijg dan wel een error met uitvoeren
+            //Invalid Cast Exception bij het selecteren van een product, en het klikken op koop artikel button
+            //string SelectedProductName = SelectedProduct.Name.ToString();
+            //Met var heb ik geen error, maar kan ik bijvoorbeeld .Price er niet op aanroepen, die ik wel nodig heb
+            //var SelectedProduct = ProductList.SelectedItem.ToString();
 */
